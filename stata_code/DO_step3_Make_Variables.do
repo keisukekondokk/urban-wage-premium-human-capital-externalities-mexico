@@ -7,19 +7,20 @@
 ***********************************************************/
 
 
-** +++++++++++++++++++++++++++++++++++++++++++++++
-** Data Set
-** +++++++++++++++++++++++++++++++++++++++++++++++
-
 ** LOAD Dataset
 use "dta_dataset_for_estimation/DTA_enoe_step2.dta", clear
+
+
+** +++++++++++++++++++++++++++++++++++++++++++++++
+** Variables
+** +++++++++++++++++++++++++++++++++++++++++++++++
 
 ** CPI
 merge m:1 year qtr using "dta_cpi/cpi.dta"
 
 ** LABEL
 label define position 1 "Trabajadores subordinados y remunerados" 2 "Empleados" 3 "Trabajadores por cuenta propia" 4 "Trabajadores sin pago" 5 "No especificado"
-label values o_pos_ocu position
+label values pos_ocu position
 
 ** Price Index from Area Minimum Wage
 sum salario
