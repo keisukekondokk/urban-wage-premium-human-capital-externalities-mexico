@@ -27,6 +27,15 @@ URL: https://keisukekondokk.github.io/
 └── README.md
 </pre>
 
+## A Guide for Replication
+
+1. Donwload the microdata from the INEGI.
+    - ./stata_code/DO_step0_dta_enoe_download.do
+2. Conduct step0 for prior preparation.
+    - ./stata_code/DO_step0_dta_enoe_estimation.do
+3. Conduct DO files from step1-step6.
+4. Conduct Do files of step9 to make figures and tables.
+ 
 
 ## Terms of Use
 Users (hereinafter referred to as the User or Users depending on context) of the content on this web site (hereinafter referred to as the Content) are required to conform to the terms of use described herein (hereinafter referred to as the Terms of Use). Furthermore, use of the Content constitutes agreement by the User with the Terms of Use. The content of the Terms of Use is subject to change without prior notice.
