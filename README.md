@@ -22,7 +22,7 @@ URL: https://keisukekondokk.github.io/
 
 <pre>
 .
-├── stata_code //Replication Code (uploaded soon)
+├── stata_code //Replication Code for Stata
 ├── LICENSE
 └── README.md
 </pre>
