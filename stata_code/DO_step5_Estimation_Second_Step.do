@@ -21,7 +21,7 @@ duplicates drop muni_code, force
 count
 
 ** Keep Variables
-keep state_code muni_code muni_fe* p15ymas num_workers area seducyear* spdens* lnspdens* pp* lnpp*
+keep state_code muni_code muniwage_fe* p15ymas area seducyear* spdens* lnspdens* pp* lnpp*
 
 ** Merge
 merge 1:1 muni_code using "dta_dataset_for_estimation/DTA_dataset_step1.dta"
@@ -35,7 +35,7 @@ drop _merge
 
 ** Average Years of Schooling
 forvalues i = 10(10)30 {
-	sum seducyear`i'km if muni_fe1_total != ., detail
+	sum seducyear`i'km if muniwage_fe1_total != ., detail
 	scalar p25_seducyear`i'km = r(p25) 
 	scalar p50_seducyear`i'km = r(p50) 
 	scalar p75_seducyear`i'km = r(p75) 
@@ -47,7 +47,7 @@ forvalues i = 10(10)30 {
 
 ** Population Density
 forvalues i = 10(10)30 {
-	sum spdens`i'km if muni_fe1_total != ., detail
+	sum spdens`i'km if muniwage_fe1_total != ., detail
 	scalar p25_spdens`i'km = r(p25) 
 	scalar p50_spdens`i'km = r(p50) 
 	scalar p75_spdens`i'km = r(p75) 
@@ -59,7 +59,7 @@ forvalues i = 10(10)30 {
 
 ** Housing with HEA
 forvalues i = 10(10)30 {
-	sum sbienes`i'km if muni_fe1_total != ., detail
+	sum sbienes`i'km if muniwage_fe1_total != ., detail
 	scalar p25_sbienes`i'km = r(p25) 
 	scalar p50_sbienes`i'km = r(p50) 
 	scalar p75_sbienes`i'km = r(p75) 
@@ -71,7 +71,7 @@ forvalues i = 10(10)30 {
 
 ** Population Potential
 forvalues i = 1(1)3 {
-	sum pp_d`i' if muni_fe1_total != ., detail
+	sum pp_d`i' if muniwage_fe1_total != ., detail
 	scalar p25_pp_d`i' = r(p25) 
 	scalar p50_pp_d`i' = r(p50) 
 	scalar p75_pp_d`i' = r(p75) 
@@ -88,9 +88,9 @@ forvalues i = 1(1)3 {
 
 ** Summary for Exporting
 tabstat ///
-	muni_fe*_total  ///
-	muni_fe*_univ  ///
-	muni_fe*_hschl  ///
+	muniwage_fe*_total  ///
+	muniwage_fe*_univ  ///
+	muniwage_fe*_hschl  ///
 	seducyear10km ///
 	seducyear20km ///
 	seducyear30km ///
@@ -103,7 +103,7 @@ tabstat ///
 	lnsbienes10km ///
 	lnsbienes20km ///
 	lnsbienes30km ///
-	if muni_fe3_total != . & seducyear10km != . ///
+	if muniwage_fe3_total != . & seducyear10km != . ///
 	, ///
 	c(stat) ///
 	stat(n mean sd min p10 p25 p50 p75 p90 max) ///
@@ -114,7 +114,7 @@ mat Stat = r(StatTotal)'
 mat list Stat
 
 ** Export
-putexcel set "table/tab_descriptive_statistics_second_step.xlsx", replace
+putexcel set "table/descriptive_statistics/tab_descriptive_statistics_second_step.xlsx", replace
 putexcel B2 = matrix(Stat), names
 putexcel close
 
@@ -136,7 +136,7 @@ foreach G in "total" "univ" "hschl" {
 	disp "##############################"
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' seducyear10km i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' seducyear10km i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondEducCoef[1, `k'] = _b[seducyear10km]
 		** 
@@ -151,7 +151,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondEducTable
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_seducyear_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_seducyear_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondEducTable), names
 	putexcel close
 }
@@ -174,7 +174,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnspdens10km i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnspdens10km i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondSpdensCoef[1, `k'] = _b[lnspdens10km]
 		** 
@@ -189,7 +189,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondSpdensTable
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_spdens_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_spdens_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondSpdensTable), names
 	putexcel close
 }
@@ -223,7 +223,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnpp_d1 i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnpp_d1 i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondPP1Coef[1, `k'] = _b[lnpp_d1]
 		** 
@@ -238,7 +238,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondPP1Table
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_pp_d1_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_pp_d1_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondPP1Table), names
 	putexcel close
 }
@@ -252,7 +252,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnpp_d2 i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnpp_d2 i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondPP2Coef[1, `k'] = _b[lnpp_d2]
 		** 
@@ -266,7 +266,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondPP2Table
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_pp_d2_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_pp_d2_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondPP2Table), names
 	putexcel close
 }
@@ -279,7 +279,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnpp_d3 i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnpp_d3 i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondPP3Coef[1, `k'] = _b[lnpp_d3]
 		** 
@@ -293,7 +293,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondPP3Table
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_pp_d3_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_pp_d3_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondPP3Table), names
 	putexcel close
 }

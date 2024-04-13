@@ -8,7 +8,7 @@
 
 
 ** LOAD Dataset
-use "dta_dataset_for_estimation/DTA_enoe_step2.dta", clear
+use "dta_dataset_for_estimation/DTA_dataset_step2.dta", clear
 
 
 ** +++++++++++++++++++++++++++++++++++++++++++++++
@@ -17,10 +17,6 @@ use "dta_dataset_for_estimation/DTA_enoe_step2.dta", clear
 
 ** CPI
 merge m:1 year qtr using "dta_cpi/cpi.dta"
-
-** LABEL
-label define position 1 "Trabajadores subordinados y remunerados" 2 "Empleados" 3 "Trabajadores por cuenta propia" 4 "Trabajadores sin pago" 5 "No especificado"
-label values pos_ocu position
 
 ** Price Index from Area Minimum Wage
 sum salario
@@ -81,12 +77,24 @@ replace exper = . if exper < 0
 gen expersq = exper^2 / 100
 gen expercb = exper^3 / 100
 
+** Tenure
+replace p3r_anio = . if p3r_anio == 9999
+gen fexper = 2005 - p3r_anio
+replace fexper = . if fexper < 0
+replace fexper = fexper + 0.25 if qtr == 1
+replace fexper = fexper + 0.5 if qtr == 2
+replace fexper = fexper + 0.75 if qtr == 3
+gen fexpersq = fexper^2 / 100
+gen fexpercb = fexper^3 / 100
+
 ** Dummy: Female
-gen dmy_female = 1 if sex == 2
-replace dmy_female = 0 if sex != 2
+gen dmy_female = .
+replace dmy_female = 0 if sex == 1
+replace dmy_female = 1 if sex == 2
 
 ** Dummy: Marriage
-gen dmy_marriage = 1 if e_con == 5
+gen dmy_marriage = .
+replace dmy_marriage = 1 if e_con == 5
 replace dmy_marriage = 0 if e_con != 5
 
 ** Dummy: Sector 2-Digit
@@ -96,6 +104,7 @@ tab sec, gen(dmy_sec)
 drop rama_est2
 
 ** Dummy: Firmsize
+replace p3q = . if p3q == 99
 gen firmsize = .
 replace firmsize = 1 if p3q <= 3
 replace firmsize = 2 if p3q > 3 & p3q <= 7
@@ -104,19 +113,12 @@ replace firmsize = 4 if p3q == 10
 replace firmsize = 5 if p3q == 11
 tab firmsize, gen(dmy_firmsize)
 
-** Label: Sector
-label define sector 1 "Agricultua, ganaderia, silvicultura, caza y pesca" 2 "Industria Extractiva y de electricidad" 3 "Ind manu" 4 "Construccion" 5 "Comercio" 6 "Restaurante y servicio de alojamiento" 7 "Transporte" 8 "Servicio profesionales, financieros y corporativos" 9 "Servicio social" 10 "Servicio diversos" 11 "Gobierno y organismos internacionales"
-label values sec sector
-
 ** Dummy: Occupation
 gen occ = c_ocu11c
+drop if occ == 0
 tab occ, gen(dmy_occ)
 drop c_ocu11c
 
-** Label: Occupation
-label define occupation 1 "Profesionales, tecnicos y trabajadores del arte" 2 "Trabajadores de la education" 3 "Funcionarios y Directivos" 4 "Oficionistas" 5 "Trabajadores industriales artesanos y ayudantes" 6 "Comerciantes" 7 "Operadores de trasnsporte" 8 "Trabajadores en servicios personales" 9 "Trabajadores en proteccion y vigilancia" 10 "Trabajadores agropecuarios" 11 "No especificado"
-label values occ occupation
-	
 ** Dummy: Year and Quarterly
 tab year, gen(dmy_year)
 tab qtr, gen(dmy_qtr)
@@ -156,6 +158,16 @@ scalar p1_exper = r(p1)
 scalar p99_exper = r(p99)
 ** 
 replace exper = . if exper >= p99_exper
+
+
+** 
+sum fexper, detail
+return list 
+** 
+scalar p1_fexper = r(p1)
+scalar p99_fexper = r(p99)
+** 
+replace fexper = . if fexper >= p99_fexper
 
 ** +++++++++++++++++++++++++++++++++++++++++++++++
 ** Save

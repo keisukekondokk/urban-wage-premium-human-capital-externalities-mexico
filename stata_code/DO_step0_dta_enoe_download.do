@@ -12,8 +12,8 @@
 ** +++++++++++++++++++++++++++++++++++++++++++++++
 **
 
-forvalues year = 2006(1)2006 {
-	forvalues q = 1(1)1 {
+forvalues year = 2005(1)2010 {
+	forvalues q = 2(1)4 {
 		**
 		local url = "https://www.inegi.org.mx/contenidos/programas/enoe/15ymas/microdatos/"
 		local savepath = "dta_enoe_download/"

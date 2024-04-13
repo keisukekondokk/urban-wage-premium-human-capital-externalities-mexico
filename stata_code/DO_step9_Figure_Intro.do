@@ -30,6 +30,6 @@ twoway ///
 	legend(off) ///
 	graphregion(color(white) fcolor(white))
 ** 
-graph export "figure/fig_scatter_seducyear_lnspdens10km.svg", replace
-graph export "figure/fig_scatter_seducyear_lnspdens10km.eps", fontface("Palatino Linotype") replace
-graph export "figure/fig_scatter_seducyear_lnspdens10km.png", width(800) replace
+graph export "figure/intro/fig_scatter_seducyear_lnspdens10km.svg", replace
+graph export "figure/intro/fig_scatter_seducyear_lnspdens10km.eps", fontface("Palatino Linotype") replace
+graph export "figure/intro/fig_scatter_seducyear_lnspdens10km.png", width(800) replace

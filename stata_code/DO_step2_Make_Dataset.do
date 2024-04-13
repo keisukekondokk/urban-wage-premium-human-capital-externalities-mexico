@@ -18,7 +18,7 @@ clear
 forvalues t = 2005(1)2010 {
 	forvalues i = 1/4 {
 		append using "dta_enoe_estimation/DTA_dataset_`t'q`i'.dta"
-	}	
+	}
 }
 
 ** 

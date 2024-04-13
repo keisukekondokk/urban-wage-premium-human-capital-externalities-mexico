@@ -33,7 +33,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnspdens10km seducyear10km i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnspdens10km seducyear10km i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondSpdensCoef[1, `k'] = _b[lnspdens10km]
 		matrix mSecondSpdensCoef[2, `k'] = _b[seducyear10km]
@@ -59,7 +59,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondSpdensTable
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_extention_spdens_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_extention_spdens_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondSpdensTable), names
 	putexcel close
 }
@@ -87,7 +87,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnspdens10km seducyear10km lnsbienes10km i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnspdens10km seducyear10km lnsbienes10km i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondSpdensCoef[1, `k'] = _b[lnspdens10km]
 		matrix mSecondSpdensCoef[2, `k'] = _b[seducyear10km]
@@ -115,7 +115,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondSpdensTable
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_extention_omitted_spdens_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_extention_omitted_spdens_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondSpdensTable), names
 	putexcel close
 }
@@ -144,7 +144,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnpp_d2 seducyear10km i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnpp_d2 seducyear10km i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondPPCoef[1, `k'] = _b[lnpp_d2]
 		matrix mSecondPPCoef[2, `k'] = _b[seducyear10km]
@@ -170,7 +170,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondPPTable
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_extention_pp_d2_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_extention_pp_d2_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondPPTable), names
 	putexcel close
 }
@@ -194,7 +194,7 @@ foreach G in "total" "univ" "hschl" {
 	** 
 	forvalues k = 1(1)3 {
 		** REGRESSION
-		reg muni_fe`k'_`G' lnpp_d2 seducyear10km lnsbienes10km i.state_code [aw=p15ymas], cl(state_code)
+		reg muniwage_fe`k'_`G' lnpp_d2 seducyear10km lnsbienes10km i.state_code [aw=p15ymas], cl(state_code)
 		** 
 		matrix mSecondPPCoef[1, `k'] = _b[lnpp_d2]
 		matrix mSecondPPCoef[2, `k'] = _b[seducyear10km]
@@ -222,7 +222,7 @@ foreach G in "total" "univ" "hschl" {
 	matrix list mSecondPPTable
 
 	** Export
-	putexcel set "table/tab_02_result_second_step_extention_omitted_pp_d2_`G'.xlsx", replace
+	putexcel set "table/results_second_step/tab_02_results_second_step_extention_omitted_pp_d2_`G'.xlsx", replace
 	putexcel B2 = matrix(mSecondPPTable), names
 	putexcel close
 }

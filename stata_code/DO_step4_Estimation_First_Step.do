@@ -27,6 +27,7 @@ tabstat ///
 	ing_x_hrs ///
 	educ ///
 	exper ///
+	fexper ///
 	dmy_female ///
 	dmy_marriage ///
 	dmy_firmsize* ///
@@ -43,7 +44,7 @@ mat Stat = r(StatTotal)'
 mat list Stat
 
 ** Export
-putexcel set "table/tab_descriptive_statistics_first_step.xlsx", replace
+putexcel set "table/descriptive_statistics/tab_descriptive_statistics_first_step.xlsx", replace
 putexcel B2 = matrix(Stat), names
 putexcel close
 
@@ -78,7 +79,7 @@ matrix mFirstStat[3, 1] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe1_total, d
-
+by muni_code, sort: egen muniwage_fe1_total = median(muni_fe1_total)
 
 ** ----------------------------------------
 ** CASE 2: WITH Control Individuals
@@ -116,7 +117,7 @@ matrix mFirstStat[3, 2] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe2_total, d
-
+by muni_code, sort: egen muniwage_fe2_total = median(muni_fe2_total)
 
 
 ** ----------------------------------------
@@ -168,6 +169,7 @@ matrix mFirstStat[3, 3] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe3_total, d
+by muni_code, sort: egen muniwage_fe3_total = median(muni_fe3_total)
 
 
 ** 
@@ -186,7 +188,7 @@ matrix list mFirstTable
 
 	
 ** Export
-putexcel set "table/tab_01_results_first_step_total.xlsx", replace
+putexcel set "table/results_first_step/tab_01_results_first_step_total.xlsx", replace
 putexcel B2 = matrix(mFirstTable), names
 putexcel close
 
@@ -221,9 +223,7 @@ matrix mFirstStat[3, 1] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe1_univ, d
-by muni_code, sort: egen temp = mean(muni_fe1_univ)
-replace muni_fe1_univ = temp if muni_fe1_total != .
-drop temp
+by muni_code, sort: egen muniwage_fe1_univ = median(muni_fe1_univ)
 
 
 ** ----------------------------------------
@@ -262,9 +262,7 @@ matrix mFirstStat[3, 2] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe2_univ, d
-by muni_code, sort: egen temp = mean(muni_fe2_univ)
-replace muni_fe2_univ = temp if muni_fe2_total != .
-drop temp
+by muni_code, sort: egen muniwage_fe2_univ = median(muni_fe2_univ)
 
 
 ** ----------------------------------------
@@ -316,10 +314,7 @@ matrix mFirstStat[3, 3] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe3_univ, d
-by muni_code, sort: egen temp = mean(muni_fe3_univ)
-replace muni_fe3_univ = temp if muni_fe3_total != .
-drop temp
-
+by muni_code, sort: egen muniwage_fe3_univ = median(muni_fe3_univ)
 
 
 
@@ -343,7 +338,7 @@ matrix list mFirstTable
 
 	
 ** Export
-putexcel set "table/tab_01_results_first_step_univ.xlsx", replace
+putexcel set "table/results_first_step/tab_01_results_first_step_univ.xlsx", replace
 putexcel B2 = matrix(mFirstTable), names
 putexcel close
 
@@ -380,9 +375,7 @@ matrix mFirstStat[3, 1] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe1_hschl, d
-by muni_code, sort: egen temp = mean(muni_fe1_hschl)
-replace muni_fe1_hschl = temp if muni_fe1_total != .
-drop temp
+by muni_code, sort: egen muniwage_fe1_hschl = median(muni_fe1_hschl)
 
 
 ** ----------------------------------------
@@ -421,9 +414,8 @@ matrix mFirstStat[3, 2] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe2_hschl, d
-by muni_code, sort: egen temp = mean(muni_fe2_hschl)
-replace muni_fe2_hschl = temp if muni_fe2_total != .
-drop temp
+by muni_code, sort: egen muniwage_fe2_hschl = median(muni_fe2_hschl)
+
 
 
 ** ----------------------------------------
@@ -475,10 +467,7 @@ matrix mFirstStat[3, 3] = e(r2_a)
 
 ** Municipal Wage Fixed Effect
 predict muni_fe3_hschl, d
-by muni_code, sort: egen temp = mean(muni_fe3_hschl)
-replace muni_fe3_hschl = temp if muni_fe3_total != .
-drop temp
-
+by muni_code, sort: egen muniwage_fe3_hschl = median(muni_fe3_hschl)
 
 
 ** ----------------------------------------
@@ -501,7 +490,7 @@ matrix list mFirstTable
 
 	
 ** Export
-putexcel set "table/tab_01_results_first_step_hschl.xlsx", replace
+putexcel set "table/results_first_step/tab_01_results_first_step_hschl.xlsx", replace
 putexcel B2 = matrix(mFirstTable), names
 putexcel close
 

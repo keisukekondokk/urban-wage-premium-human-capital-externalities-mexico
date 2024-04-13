@@ -155,6 +155,10 @@ forvalues t = 9(1)10 {
 		use "dta_enoe_estimation/sdemt`i'`year'.dta", clear
 		keep loc mun est ageb t_loc cd_a ent con upm d_sem sex n_pro_viv v_sel n_hog h_mud n_ent per n_ren eda nac_dia nac_mes nac_anio l_nac_c ///
 			cs_p13_1 cs_p16 cs_p17 e_con cs_nr_mot cs_nr_ori salario pos_ocu seg_soc rama c_ocu11c rama_est1 rama_est2 anios_esc ing_x_hrs
+			
+		**
+		destring t_loc, replace
+		** 
 		save "dta_enoe_estimation/sdem_20`year'q`i'.dta", replace
 
 		** Merge

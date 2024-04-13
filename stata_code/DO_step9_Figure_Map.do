@@ -43,8 +43,8 @@ grmap grado_escolar, ///
 	legcount ///
 	line(data("ESTADO2005_shp.dta") size(medthin))
 ** Save
-graph export "figure/fig_map_educyear.svg", replace
-graph export "figure/fig_map_educyear.eps", fontface("Palatino Linotype") replace
+graph export "figure/map/fig_map_educyear.svg", replace
+graph export "figure/map/fig_map_educyear.eps", fontface("Palatino Linotype") replace
 
 	
 		
@@ -62,8 +62,8 @@ grmap seducyear10km, ///
 	legcount ///
 	line(data("ESTADO2005_shp.dta") size(medthin))
 ** Save
-graph export "figure/fig_map_seducyear.svg", replace
-graph export "figure/fig_map_seducyear.eps", fontface("Palatino Linotype") replace
+graph export "figure/map/fig_map_seducyear.svg", replace
+graph export "figure/map/fig_map_seducyear.eps", fontface("Palatino Linotype") replace
 
 	
 ** +++++++++++++++++++++++++++++++++++++++++++++++
@@ -85,8 +85,8 @@ grmap lnpdens, ///
 	legcount ///
 	line(data("ESTADO2005_shp.dta") size(medthin))
 ** Save
-graph export "figure/fig_map_lnpdens.svg", replace
-graph export "figure/fig_map_lnpdens.eps", fontface("Palatino Linotype") replace
+graph export "figure/map/fig_map_lnpdens.svg", replace
+graph export "figure/map/fig_map_lnpdens.eps", fontface("Palatino Linotype") replace
 
 
 ** Population Density within 10km
@@ -103,8 +103,8 @@ grmap lnspdens10km, ///
 	legcount ///
 	line(data("ESTADO2005_shp.dta") size(medthin))
 ** Save
-graph export "figure/fig_map_lnspdens10km.svg", replace
-graph export "figure/fig_map_lnspdens10km.eps", fontface("Palatino Linotype") replace
+graph export "figure/map/fig_map_lnspdens10km.svg", replace
+graph export "figure/map/fig_map_lnspdens10km.eps", fontface("Palatino Linotype") replace
 
 	
 ** +++++++++++++++++++++++++++++++++++++++++++++++
@@ -126,8 +126,8 @@ grmap lnsbienes10km, ///
 	legcount ///
 	line(data("ESTADO2005_shp.dta") size(medthin))
 ** Save
-graph export "figure/fig_map_lnsbienes10km.svg", replace
-graph export "figure/fig_map_lnsbienes10km.eps", fontface("Palatino Linotype") replace
+graph export "figure/map/fig_map_lnsbienes10km.svg", replace
+graph export "figure/map/fig_map_lnsbienes10km.eps", fontface("Palatino Linotype") replace
 
 	
 ** +++++++++++++++++++++++++++++++++++++++++++++++
@@ -150,6 +150,6 @@ forvalues i = 1(1)3 {
 		legcount ///
 		line(data("ESTADO2005_shp.dta") size(medthin))
 	** Save
-	graph export "figure/fig_map_lnpp_d`i'.svg", replace
-	graph export "figure/fig_map_lnpp_d`i'.eps", fontface("Palatino Linotype") replace
+	graph export "figure/map/fig_map_lnpp_d`i'.svg", replace
+	graph export "figure/map/fig_map_lnpp_d`i'.eps", fontface("Palatino Linotype") replace
 }
