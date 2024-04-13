@@ -2,7 +2,7 @@
 
 This GitHub repository provides Stata code and data used in Kondo (2024) for replication.
 
-The original data used in this study are publicly available from the National Institute of Statistics and Geography (Instituto Nacional de Estadística y Geografía, INEGI).
+The original microdata used in this study are publicly available from the National Institute of Statistics and Geography (Instituto Nacional de Estadística y Geografía, INEGI).
 
 - National Occupation and Employment Survey (Encuesta Nacional de Ocupación y Empleo, ENOE)<br /> 
 https://www.inegi.org.mx/programas/enoe/15ymas/
@@ -10,6 +10,11 @@ https://www.inegi.org.mx/programas/enoe/15ymas/
 https://www.inegi.org.mx/programas/ccpv/2005/
 - 2010 Population and Housing Census (Censo de Población y Vivienda 2010). <br /> 
 https://www.inegi.org.mx/programas/ccpv/2010/
+
+The shapefiles used in this study are also available from the National Institute of Statistics and Geography (Instituto Nacional de Estadística y Geografía, INEGI).
+
+- Marco geoestadístico municipal 2005 versión 1.0 (Conteo de Población y Vivienda 2005) <br />
+https://www.inegi.org.mx/temas/mg/
 
 ## Author
 Keisuke Kondo  
@@ -28,6 +33,8 @@ URL: https://keisukekondokk.github.io/
 </pre>
 
 ## A Guide for Replication
+
+Stata version 15 or later is required to run the Stata code in this repository. Please follow the instructions for replication:
 
 1. Donwload the microdata from the INEGI.
     - ./stata_code/DO_step0_dta_enoe_download.do
